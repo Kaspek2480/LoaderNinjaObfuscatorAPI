@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 
 public class NativeBridge {
     static {
-        NativeLoader.load();
+//        NativeLoader.load();
+        System.load("C:\\Users\\Kaspek\\IdeaProjects\\LoaderNinjaJavaSDK\\src\\main\\resources\\lib\\windows_64\\libtestEnv.dll");
     }
 
     private static final Logger LOGGER = Logger.getLogger(NativeBridge.class.getName());
