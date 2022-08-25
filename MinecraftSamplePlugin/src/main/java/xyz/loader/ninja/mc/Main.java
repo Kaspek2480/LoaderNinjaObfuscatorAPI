@@ -1,5 +1,7 @@
 package xyz.loader.ninja.mc;
 
+import com.loader.ninja.NativeBridge;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.loader.ninja.mc.command.BasicCommand;
 
@@ -17,6 +19,12 @@ public class Main extends JavaPlugin {
         if (Files.exists(TITANAXE_PATH)) {
             System.out.println("Titanaxe test env mode test enabled");
             System.load(NATIVE_PATH.toAbsolutePath().toString());
+        }
+
+        if (!NativeBridge.initialized()) {
+            getLogger().warning("Native bridge not initialized");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }
 
         getCommand("test").setExecutor(new BasicCommand());

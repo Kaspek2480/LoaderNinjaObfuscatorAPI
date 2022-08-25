@@ -31,27 +31,29 @@ public class NativeBridge {
         }
     }
 
+    //loader
+    public static native String loadFromBytes(byte[] bytes);
+
+    public static native Class<?> findClass(String className, ClassLoader loader);
+
+    public static native byte[] getResource(String name);
+
+    //obf
     public static String bakeCake(int rounds, byte... bytes) {
         return new String(NativeBridge.bake(bytes, rounds), StandardCharsets.UTF_8).intern();
     }
+
+    public static native byte[] bake(byte[] bytes, int rounds);
+
+    public static native int getNumber(String key);
+
+    //other
 
     public static native SecureString getSecret(String key) throws SecretNotFoundException;
 
     public static native byte[] decryptString(byte[] data, String appSecret, int rounds);
 
-    public static native Class<?> findClass(String className, ClassLoader loader);
-
     public static native void setupConsole(boolean colors, boolean mc);
 
-    public static native byte[] bake(byte[] bytes, int rounds);
-
-    public static native byte[] getSecretVariable(String key);
-
-    public static native String loadFromBytes(byte[] bytes);
-
-    public static native byte[] getResource(String name);
-
-    public static native int getNumber(String key);
-
-    public static native void unload();
+    public static native boolean initialized();
 }
