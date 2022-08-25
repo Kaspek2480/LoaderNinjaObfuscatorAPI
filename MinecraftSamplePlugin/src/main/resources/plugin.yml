@@ -1,0 +1,11 @@
+name: NinjaPlugin
+version: 1.0
+author: LoaderNinjaCorporation
+main: xyz.loader.ninja.mc.Main
+commands:
+  test:
+    description: Test command
+    usage: /test
+    aliases:
+      - t
+      - test

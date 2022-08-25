@@ -1,0 +1,4 @@
+name: TestPlugin
+main: com.loader.ninja.bungee.Main
+version: 1.0
+author: username
