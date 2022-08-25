@@ -5,9 +5,9 @@ import java.util.Objects;
 
 public enum OsType {
 
-    MAC("Mac", "native"),
-    WINDOWS("Windows", "native.dll"),
-    LINUX("Linux", "native.so"),
+    MAC("Mac", "lib/native"),
+    WINDOWS("Windows", "lib/native.dll"),
+    LINUX("Linux", "lib/native.so"),
     UNKNOWN("N/A", "");
 
     private static final OsType DETECTED = detectOS();

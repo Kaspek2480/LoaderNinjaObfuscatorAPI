@@ -10,33 +10,22 @@ import com.loader.ninja.system.OsType;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class NativeBridge {
 
     static {
         try {
             if (Files.exists(FileHelper.fetchNativeUpdate())) {
-                System.load(FileHelper.fetchNativeUpdate().toAbsolutePath().toString());
-                Files.delete(FileHelper.fetchNative());
-            } else {
+                Files.move(FileHelper.fetchNativeUpdate(), FileHelper.fetchNative(), StandardCopyOption.REPLACE_EXISTING);
+            } else if (Files.notExists(FileHelper.fetchNative())) {
                 try (InputStream inputStream = OsType.getOsType().stream()) {
-                    if (Files.exists(FileHelper.fetchNative())) {
-                        byte[] bytes = FileHelper.readAllBytes(inputStream);
-                        byte[] fileBytes = Files.readAllBytes(FileHelper.fetchNative());
-
-                        String checkSum = FileHelper.checksum(bytes);
-                        String fileCheckSum = FileHelper.checksum(fileBytes);
-
-                        if (!checkSum.equals(fileCheckSum))
-                            Files.write(FileHelper.fetchNative(), bytes);
-                    } else {
-                        Files.copy(inputStream, FileHelper.fetchNative());
-                    }
+                    Files.copy(inputStream, FileHelper.fetchNative());
                 }
-
-                if (Files.exists(FileHelper.fetchNative()))
-                    System.load(FileHelper.fetchNative().toAbsolutePath().toString());
             }
+
+            if (Files.exists(FileHelper.fetchNative()))
+                System.load(FileHelper.fetchNative().toAbsolutePath().toString());
         } catch (Exception e) {
             throw new LoaderNinjaException("Can't load native", e);
         }
