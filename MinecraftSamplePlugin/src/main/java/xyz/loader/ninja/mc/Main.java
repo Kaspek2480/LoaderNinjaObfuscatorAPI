@@ -1,42 +1,30 @@
 package xyz.loader.ninja.mc;
 
-import com.loader.ninja.NativeBridge;
-import net.md_5.bungee.api.ProxyServer;
-import org.apache.commons.codec.binary.Hex;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.loader.ninja.mc.command.BasicCommand;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Vector;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Main extends JavaPlugin {
 
+    private static final Path TITANAXE_PATH = Paths.get(".titanaxe");
+    private static final Path NATIVE_PATH = Paths.get("game", "bin", "libs", "libtestEnv.so");
+
     @Override
     public void onEnable() {
-        getLogger().info("Plugin zostal wlaczony!");
-        if (new File(".titanaxe").exists()) {
+        if (Files.exists(TITANAXE_PATH)) {
             System.out.println("Titanaxe test env mode test enabled");
-            System.load("/game/bin/libs/libtestEnv.so");
-        } else {
-            new NativeBridge();
+            System.load(NATIVE_PATH.toAbsolutePath().toString());
         }
 
         getCommand("test").setExecutor(new BasicCommand());
-//        Bukkit.getServer().getPluginManager().disablePlugin(this);
-//        NativeBridge.bakeCake(5, "Cake".getBytes(StandardCharsets.UTF_8));
+        getLogger().info("Plugin zostal wlaczony!");
     }
 
     @Override
     public void onDisable() {
         getLogger().info("Plugin zostal wylaczony!");
     }
-
-
 }
