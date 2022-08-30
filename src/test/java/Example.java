@@ -13,9 +13,14 @@ public class Example {
     }
 
     public static void main(String[] args) {
-        System.out.println();
-        System.out.println(NativeBridge.encryptInt(5000, "static_secure_element", 8));
-        System.out.println(NativeBridge.decryptInt(7842, 8));
-//        System.out.println(decryptInt(1, 5));
+        int original = 5000;
+        System.out.println("Original: " + original);
+
+        int obf = NativeBridge.encryptInt(original, "static_secure_element", 8);
+        System.out.println("Obfuscated: " + obf);
+
+        int deobf = NativeBridge.decryptInt(obf, 8);
+        System.out.println("Deobfuscated: " + deobf);
+        System.out.println("Original == Deobfuscated: " + (original == deobf));
     }
 }
