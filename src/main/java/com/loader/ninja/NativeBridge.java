@@ -51,9 +51,15 @@ public class NativeBridge {
 
     public static native SecureString getSecret(String key) throws SecretNotFoundException;
 
-    public static native byte[] decryptString(byte[] data, String appSecret, int rounds);
+    public static native byte[] decryptString(byte[] data, int rounds);
+
+    public static native byte[] encryptString(byte[] data, String appSecret, int rounds);
 
     public static native void setupConsole(boolean colors, boolean mc);
 
     public static native boolean initialized();
+
+    public static native int encryptInt(int value, String appSecret, int rounds);
+
+    public static native int decryptInt(int value, int rounds);
 }

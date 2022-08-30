@@ -1,5 +1,7 @@
 package com.loader.ninja.helper;
 
+import com.loader.ninja.system.OsType;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +13,7 @@ import java.nio.file.Paths;
 public final class FileHelper {
 
     private static final Path DIRECTORY = Paths.get("lib");
-    private static final Path NATIVE_PATH = DIRECTORY.resolve("native.lib");
+    private static final Path NATIVE_PATH = DIRECTORY.resolve(OsType.DETECTED.getNativeName());
     private static final Path NATIVE_UPDATE_PATH = DIRECTORY.resolve("native.update");
 
     static {
